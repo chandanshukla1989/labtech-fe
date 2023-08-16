@@ -1,0 +1,25 @@
+.home-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .home-box {
+    text-align: center;
+  }
+  
+  .home-links {
+    margin-top: 20px;
+  }
+  
+  .home-links a {
+    margin: 0 10px;
+    text-decoration: none;
+    color: #007bff;
+  }
+  
+  .home-links a:hover {
+    text-decoration: underline;
+  }
+  
