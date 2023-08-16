@@ -1,15 +1,13 @@
-import React, { useEffect } from 'react';
-import { useAuth } from './AuthContext';
+import React, { useEffect } from "react";
+import { useAuth } from "./AuthContext";
 
 const WelcomePage = () => {
   const { state } = useAuth();
-  useEffect(()=>{
-console.log(state)
-},[])
 
   return (
     <div>
-      <h2>Welcome !</h2>
+      {/* state.user.username, now reads from context */}
+      <h2>Welcome {state.user.userName}!</h2>
       {/* Your beautiful welcome page content */}
     </div>
   );
