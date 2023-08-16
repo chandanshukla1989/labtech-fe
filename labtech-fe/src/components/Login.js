@@ -1,35 +1,34 @@
-import React, { useState } from 'react';
-import './Login.css';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom'; // Use useNavigate for v6
-
+import React, { useState } from "react";
+import "./Login.css";
+import axios from "axios";
+import { useNavigate } from "react-router-dom"; // Use useNavigate for v6
+import { useAuth } from "./AuthContext";
 
 function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const { state, dispatch } = useAuth();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate(); // Get the navigate function
 
-
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const response =await axios.post('http://localhost:3001/api/login', {
+      const response = await axios.post("http://localhost:3001/api/login", {
         email,
-        password
+        password,
       });
-      console.log('Response:', response);
-
-      const userName = response.data.userName;
-      navigate('/welcome'); // Use navigate function for navigation
-
+      console.log("Response:", response);
+      //added a dispatch to store fetched data in context
+      dispatch({ type: "LOGIN", payload: response.data });
+      //navigate works fine
+      navigate("/welcome"); // Use navigate function for navigation
 
       // Handle successful login, e.g., redirect to dashboard
     } catch (error) {
-      console.error('Login Error:', error);
+      console.error("Login Error:", error);
     }
   };
-  
 
   return (
     <div className="login-container">
@@ -40,13 +39,13 @@ function Login() {
             type="email"
             placeholder="Email"
             value={email}
-            onChange={e => setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <input
             type="password"
             placeholder="Password"
             value={password}
-            onChange={e => setPassword(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
           />
           <button type="submit">Login</button>
         </form>
